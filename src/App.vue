@@ -21,7 +21,7 @@ const toggleDarkMode = () => {
 </script>
 
 <template>
-  <main :class="isDarkMode ? 'dark-mode' : ''">
+  <main :class="isDarkMode ? 'dark-mode' : ''" class="border-4 border-sky-500">
     <div
       class="dark:bg-slate-900 bg-white min-h-screen flex items-center justify-center"
     >
