@@ -21,16 +21,42 @@ const toggleDarkMode = () => {
 </script>
 
 <template>
-  <div>
-    <button
-      @click="toggleDarkMode"
-      class="mt-6 bg-indigo-500 text-white px-4 py-2 shadow-lg"
+  <main :class="isDarkMode ? 'dark-mode' : ''">
+    <div
+      class="dark:bg-slate-900 bg-white min-h-screen flex items-center justify-center"
     >
-      {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
-    </button>
-  </div>
-  <main>
-    <Test :isDarkMode="isDarkMode" />
+      <div role="tablist" class="tabs tabs-bordered">
+        <input
+          type="radio"
+          name="my_tabs_1"
+          role="tab"
+          class="tab"
+          aria-label="Tab 1"
+          checked="checked"
+        />
+        <div role="tabpanel" class="tab-content p-10">
+          <Test :isDarkMode="isDarkMode" />
+        </div>
+
+        <input
+          type="radio"
+          name="my_tabs_1"
+          role="tab"
+          class="tab"
+          aria-label="Tab 2"
+        />
+        <div role="tabpanel" class="tab-content p-10">
+          <Test :isDarkMode="isDarkMode" />
+        </div>
+
+        <button
+          @click="toggleDarkMode"
+          class="mt-6 bg-indigo-500 text-white px-4 py-2 shadow-lg"
+        >
+          {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
+        </button>
+      </div>
+    </div>
   </main>
 </template>
 
