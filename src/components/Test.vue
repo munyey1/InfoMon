@@ -10,6 +10,9 @@ const selectedGen = ref("");
 
 const fetchPokemon = async () => {
   const url = "https://pokeapi.co/api/v2/pokemon?limit=151";
+  // Figure out how to get the selected generation
+  // const url = `https://pokeapi.co/api/v2/generation/${selectedGen.value}`;
+  // Seems like this is the correct API call
 
   try {
     const response = await axios.get(url);
@@ -26,8 +29,9 @@ const props = defineProps({
 });
 
 const get151Pokemon = () => {
+  // Use selectedGen.value to get the correct generation
   fetchPokemon();
-};
+};  
 </script>
 
 <template>
