@@ -9,7 +9,7 @@ const error = ref(null);
 const selectedGenQuery = ref("");
 
 const fetchPokemon = async () => {
-  const genUrl = `https://pokeapi.co/api/v2/generation/${selectedGenQuery.value}/`;
+  const genUrl = `https://pokeapi.co/api/v2/pokemon?${selectedGenQuery.value}/`;
 
   try {
     const response = await axios.get(genUrl);
@@ -27,7 +27,6 @@ const props = defineProps({
 
 const getPokemon = () => {
   fetchPokemon();
-  console.log(allPokemon.value);
 };
 </script>
 
@@ -47,7 +46,7 @@ const getPokemon = () => {
           v-model="selectedGenQuery"
         >
           <option selected disabled>Please select</option>
-          <option value="limit=151">Generation 1</option>
+          <option value="limit=151&offset=0">Generation 1</option>
           <option value="limit=100&offset=151">Generation 2</option>
           <option value="limit=135&offset=251">Generation 3</option>
           <option value="limit=107&offset=386">Generation 4</option>
