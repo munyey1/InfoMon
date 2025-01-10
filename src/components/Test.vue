@@ -28,6 +28,15 @@ const props = defineProps({
 const getPokemon = () => {
   fetchPokemon();
 };
+
+const emptyPokemon = () => {
+  allPokemon.value = [];
+  error.value = null;
+  loading.value = true;
+};
+
+// make a new card component and pass the pokemon
+
 </script>
 
 <template>
@@ -58,9 +67,15 @@ const getPokemon = () => {
       </div>
       <button
         @click="getPokemon"
-        class="btn mt-6 bg-indigo-500 text-white px-4 py-2 shadow-lg"
+        class="btn mt-6 bg-indigo-500 w-full text-white px-4 py-2 shadow-lg"
       >
         Search Pokemon
+      </button>
+      <button
+        @click="emptyPokemon"
+        class="btn mt-6 bg-indigo-500 w-full text-white px-4 py-2 shadow-lg"
+      >
+        Empty Pokemon
       </button>
       <div v-if="error" class="mt-4">
         <p class="text-slate-500 dark:text-slate-400 text-sm">
