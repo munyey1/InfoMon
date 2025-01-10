@@ -10,7 +10,7 @@ const selectedGenQuery = ref("");
 
 const fetchPokemon = async () => {
   const genUrl = `https://pokeapi.co/api/v2/generation/${selectedGenQuery.value}/`;
-  
+
   try {
     const response = await axios.get(genUrl);
     allPokemon.value = response.data.results;
@@ -51,10 +51,10 @@ const getPokemon = () => {
           <option value="limit=100&offset=151">Generation 2</option>
           <option value="limit=135&offset=251">Generation 3</option>
           <option value="limit=107&offset=386">Generation 4</option>
-          <option value="limit=134&offset=251">Generation 5</option>
-          <option value="limit=134&offset=251">Generation 6</option>
-          <option value="limit=134&offset=251">Generation 7</option>
-          <option value="limit=134&offset=251">Generation 8</option>
+          <option value="limit=156&offset=493">Generation 5</option>
+          <option value="limit=72&offset=649">Generation 6</option>
+          <option value="limit=88&offset=721">Generation 7</option>
+          <option value="limit=96&offset=809">Generation 8</option>
         </select>
       </div>
       <button
