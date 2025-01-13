@@ -2,6 +2,8 @@
 import { ref, onMounted } from "vue";
 
 import Test from "./components/Test.vue";
+import Search from "./components/Search.vue";
+import Card from "./components/Card.vue";
 
 const isDarkMode = ref(true);
 
@@ -46,7 +48,7 @@ const toggleDarkMode = () => {
           aria-label="Tab 2"
         />
         <div role="tabpanel" class="tab-content p-10">
-          <Test :isDarkMode="isDarkMode" />
+          <Card :isDarkMode="isDarkMode" />
         </div>
 
         <button
