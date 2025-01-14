@@ -1,10 +1,32 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import { defineProps } from "vue";
 
 const props = defineProps({
   isDarkMode: Boolean,
+  url: String,
+});
+
+const spriteUrl = ref("");
+const loading = ref(true);
+const error = ref(null);
+
+const fetchPokemon = async () => {
+  const genUrl = `https://pokeapi.co/api/v2/pokemon/1/`;
+
+  try {
+    const response = await axios.get(genUrl);
+    spriteUrl.value = response.data.sprites.front_default;
+  } catch (err) {
+    error.value = err;
+  } finally {
+    loading.value = false;
+  }
+};
+
+onMounted(() => {
+  fetchPokemon();
 });
 
 </script>
@@ -14,7 +36,7 @@ const props = defineProps({
     <div class="card bg-white dark:bg-slate-800 shadow-xl">
       <figure>
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+          :src=spriteUrl
           alt="Shoes"
         />
       </figure>
