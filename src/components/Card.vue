@@ -8,7 +8,7 @@ const props = defineProps({
   url: String,
 });
 
-const spriteUrl = ref("");
+const spriteUrl = ref([]);
 const loading = ref(true);
 const error = ref(null);
 
@@ -17,7 +17,7 @@ const fetchPokemon = async () => {
 
   try {
     const response = await axios.get(genUrl);
-    spriteUrl.value = response.data.sprites.front_default;
+    spriteUrl.value = response.data.sprites.other["official-artwork"];
   } catch (err) {
     error.value = err;
   } finally {
@@ -28,27 +28,26 @@ const fetchPokemon = async () => {
 onMounted(() => {
   fetchPokemon();
 });
-
 </script>
 
 <template>
   <div :class="isDarkMode ? 'dark-mode' : ''">
     <div class="card bg-white dark:bg-slate-800 shadow-xl">
       <figure>
-        <img
-          :src=spriteUrl
-          alt="Shoes"
-        />
+        <div
+          v-for="sprites in spriteUrl"
+          :key="sprites"
+          class="grid grid-rows-1 gap-4 justify-center items-center"
+        >
+          <img :src="sprites" class="h-auto w-1/2 border-2 mx-auto"/>
+        </div>
       </figure>
       <div class="card-body">
-        <h2 class="card-title">
-          Shoes!
-          <div class="badge badge-secondary">NEW</div>
-        </h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <h2 class="card-title">Bulbasaur</h2> 
+        <p>Check out Bulbasaur's official artwork!</p>
         <div class="card-actions justify-end">
-          <div class="badge badge-outline">Fashion</div>
-          <div class="badge badge-outline">Products</div>
+          <div class="badge badge-outline">Grass</div>
+          <div class="badge badge-outline">Poison</div>
         </div>
       </div>
     </div>
