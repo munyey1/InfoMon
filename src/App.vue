@@ -48,7 +48,7 @@ const toggleDarkMode = () => {
           aria-label="Tab 2"
         />
         <div role="tabpanel" class="tab-content p-10">
-          <Card :isDarkMode="isDarkMode" />
+          <Card :isDarkMode="isDarkMode" :name="bulbasaur" />
         </div>
 
         <button
