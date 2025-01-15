@@ -2,6 +2,10 @@
 import { ref } from "vue";
 import axios from "axios";
 
+const props = defineProps({
+  isDarkMode: Boolean,
+});
+
 const allPokemon = ref([]);
 const loading = ref(true);
 const error = ref(null);
@@ -20,10 +24,6 @@ const fetchPokemon = async () => {
     loading.value = false;
   }
 };
-
-const props = defineProps({
-  isDarkMode: Boolean,
-});
 
 const getPokemon = () => {
   fetchPokemon();
