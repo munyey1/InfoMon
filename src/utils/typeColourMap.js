@@ -1,0 +1,21 @@
+export const typeColorMap = {
+    grass: "bg-green-500",
+    poison: "bg-purple-500",
+    fire: "bg-red-500",
+    water: "bg-blue-500",
+    bug: "bg-green-700",
+    normal: "bg-gray-400",
+    electric: "bg-yellow-500",
+    ground: "bg-yellow-700",
+    fairy: "bg-pink-500",
+    fighting: "bg-red-700",
+    psychic: "bg-pink-400",
+    rock: "bg-gray-700",
+    ice: "bg-blue-300",
+    dragon: "bg-indigo-500",
+    dark: "bg-gray-800",
+    ghost: "bg-purple-800",
+    steel: "bg-gray-500",
+    flying: "bg-blue-400",
+  };
+  
