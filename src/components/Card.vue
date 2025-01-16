@@ -19,7 +19,7 @@ const spriteUrl = ref([]);
 const types = ref([]);
 
 const fetchPokemon = async () => {
-  const genUrl = `https://pokeapi.co/api/v2/pokemon/1/`;
+  const genUrl = props.url;
 
   try {
     const response = await axios.get(genUrl);
@@ -27,7 +27,6 @@ const fetchPokemon = async () => {
     spriteUrl.value = response.data.sprites.other["official-artwork"];
 
     types.value = pokemon.value.types.map((type) => type.type.name);
-
   } catch (err) {
     error.value = err;
   } finally {
@@ -47,15 +46,15 @@ const testBtn = () => {
 
 <template>
   <div :class="isDarkMode ? 'dark-mode' : ''">
-    <div class="card bg-white dark:bg-slate-800 size-1/3 shadow-xl">
-      <button @click="testBtn">Test</button>
+    <div class="card bg-white dark:bg-slate-800 shadow-xl">
       <figure>
-        <div
-          v-for="sprites in spriteUrl"
-          :key="sprites"
-          class="grid grid-rows-1 gap-4"
-        >
-          <img :src="sprites" class="h-auto w-fit p-4" />
+        <div class="grid grid-cols-2">
+          <img
+            v-for="sprites in spriteUrl"
+            :key="sprites"
+            :src="sprites"
+            class="h-auto w-full p-4"
+          />
         </div>
       </figure>
       <div class="card-body">
