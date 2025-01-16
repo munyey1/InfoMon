@@ -32,11 +32,11 @@ const toggleDarkMode = () => {
           type="radio"
           name="my_tabs_1"
           role="tab"
-          class="tab mx-4 leading-none"
-          aria-label="Tab 1"
+          class="tab whitespace-nowrap ml-10"
+          aria-label="Search"
           checked="checked"
         />
-        <div role="tabpanel" class="tab-content p-10">
+        <div role="tabpanel" class="tab-content px-10 py-6">
           <Test :isDarkMode="isDarkMode" />
         </div>
 
@@ -44,7 +44,7 @@ const toggleDarkMode = () => {
           type="radio"
           name="my_tabs_1"
           role="tab"
-          class="tab mx-4"
+          class="tab whitespace-nowrap"
           aria-label="Tab 2"
         />
         <div role="tabpanel" class="tab-content p-10">
@@ -52,7 +52,7 @@ const toggleDarkMode = () => {
 
         <button
           @click="toggleDarkMode"
-          class="btn mt-6 bg-indigo-500 text-white mx-4 shadow-lg"
+          class="btn mt-6 bg-indigo-500 text-white mx-4 shadow-lg whitespace-nowrap"
         >
           {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
         </button>
