@@ -2,6 +2,8 @@
 import { ref } from "vue";
 import axios from "axios";
 
+import Card from "./Card.vue";
+
 const props = defineProps({
   isDarkMode: Boolean,
 });
@@ -35,8 +37,6 @@ const emptyPokemon = () => {
   loading.value = true;
 };
 
-// make a new card component and pass the pokemon
-
 </script>
 
 <template>
@@ -45,7 +45,7 @@ const emptyPokemon = () => {
       class="bg-white dark:bg-slate-800 px-6 py-8 ring-1 ring-slate-900/5 shadow-xl"
     >
       <h3
-        class="text-slate-900 dark:text-white mt-5 text-base font-medium tracking-tight"
+        class="text-slate-900 dark:text-white text-base font-medium tracking-tight"
       >
         Pokemon
       </h3>
@@ -67,13 +67,13 @@ const emptyPokemon = () => {
       </div>
       <button
         @click="getPokemon"
-        class="btn mt-6 bg-indigo-500 w-full text-white px-4 py-2 shadow-lg"
+        class="btn mt-6 bg-indigo-500 text-white px-4 py-2 shadow-lg"
       >
         Search Pokemon
       </button>
       <button
         @click="emptyPokemon"
-        class="btn mt-6 bg-indigo-500 w-full text-white px-4 py-2 shadow-lg"
+        class="btn mt-6 bg-indigo-500 text-white px-4 py-2 shadow-lg"
       >
         Empty Pokemon
       </button>
@@ -83,11 +83,15 @@ const emptyPokemon = () => {
         </p>
       </div>
       <div v-else class="mt-4">
-        <ul>
-          <li v-for="pokemon in allPokemon" :key="pokemon.name">
-            <p class="text-slate-900 dark:text-white">{{ pokemon.name }}</p>
-          </li>
-        </ul>
+        <div class="grid grid-cols-3 gap-4">
+          <Card
+            v-for="pokemon in allPokemon"
+            :key="pokemon.name"
+            :isDarkMode="isDarkMode"
+            :name="pokemon.name"
+            :url="pokemon.url"
+          />
+        </div>
       </div>
     </div>
   </div>
