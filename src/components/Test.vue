@@ -51,11 +51,11 @@ const emptyPokemon = () => {
       </h3>
       <div>
         <select
-          class="select bg-white dark:bg-slate-800 w-full max-w-xs"
+          class="select bg-white text-slate-900 dark:text-slate-400 dark:bg-slate-800 w-full max-w-xs"
           v-model="selectedGenQuery"
         >
           <option selected disabled>Please select</option>
-          <option value="limit=151&offset=0">Generation 1</option>
+          <option value="limit=151&offset=0">Generation 1</option> 
           <option value="limit=100&offset=151">Generation 2</option>
           <option value="limit=135&offset=251">Generation 3</option>
           <option value="limit=107&offset=386">Generation 4</option>

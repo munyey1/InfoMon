@@ -30,7 +30,7 @@ const toggleDarkMode = () => {
           type="radio"
           name="my_tabs_1"
           role="tab"
-          class="tab whitespace-nowrap ml-10"
+          class="tab text-slate-900 dark:text-slate-400 whitespace-nowrap ml-10"
           aria-label="Search"
           checked="checked"
         />
@@ -42,7 +42,7 @@ const toggleDarkMode = () => {
           type="radio"
           name="my_tabs_1"
           role="tab"
-          class="tab whitespace-nowrap"
+          class="tab text-slate-900 dark:text-slate-400 whitespace-nowrap"
           aria-label="Tab 2"
         />
         <div role="tabpanel" class="tab-content p-10">
