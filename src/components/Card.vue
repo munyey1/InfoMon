@@ -44,7 +44,8 @@ const toggleShiny = () => {
 };
 
 const testBtn = () => {
-  console.log(spriteUrl.value.front_default);
+  console.log(pokemon.value.height, pokemon.value.weight);
+  console.log(pokemon.value.abilities);
 };
 </script>
 
@@ -59,7 +60,7 @@ const testBtn = () => {
           >
             Toggle Sprite
           </button>
-          <p class="mt-4 text-lg font-medium">
+          <p class="mt-4 text-slate-900 dark:text-slate-400 text-lg font-semibold">
             {{ showShiny ? "Shiny" : "Default" }}
           </p>
           <img
@@ -86,7 +87,12 @@ const testBtn = () => {
             {{ type }}
           </div>
         </h2>
-        
+        <p v-if="!loading" class="text-sm text-gray-500 dark:text-slate-400">
+          National Number: {{ pokemon.id }}
+        </p>
+        <button @click="testBtn" class="btn bg-indigo-500 text-white mt-4">
+          Test
+        </button>
       </div>
     </div>
   </div>
