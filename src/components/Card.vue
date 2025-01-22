@@ -17,6 +17,7 @@ const error = ref(null);
 const pokemon = ref(null);
 const spriteUrl = ref([]);
 const types = ref([]);
+const showShiny = ref(false);
 
 const fetchPokemon = async () => {
   const genUrl = props.url;
@@ -38,9 +39,12 @@ onMounted(() => {
   fetchPokemon();
 });
 
+const toggleShiny = () => {
+  showShiny.value = !showShiny.value;
+};
+
 const testBtn = () => {
-  console.log(types.value[0]);
-  console.log(typeColorMap[types.value[0]]);
+  console.log(spriteUrl.value.front_default);
 };
 </script>
 
@@ -48,11 +52,24 @@ const testBtn = () => {
   <div :class="isDarkMode ? 'dark-mode' : ''">
     <div class="card bg-white dark:bg-slate-800 shadow-xl">
       <figure>
-        <div class="grid grid-cols-2">
+        <div class="grid grid-cols-1 justify-items-center">
+          <button
+            @click="toggleShiny"
+            class="btn bg-indigo-500 text-white mt-8"
+          >
+            Toggle Sprite
+          </button>
+          <p class="mt-4 text-lg font-medium">
+            {{ showShiny ? "Shiny" : "Default" }}
+          </p>
           <img
-            v-for="sprites in spriteUrl"
-            :key="sprites"
-            :src="sprites"
+            v-if="showShiny"
+            :src="spriteUrl.front_shiny"
+            class="h-auto w-full p-4"
+          />
+          <img
+            v-else
+            :src="spriteUrl.front_default"
             class="h-auto w-full p-4"
           />
         </div>
@@ -69,6 +86,7 @@ const testBtn = () => {
             {{ type }}
           </div>
         </h2>
+        
       </div>
     </div>
   </div>
