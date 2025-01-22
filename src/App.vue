@@ -2,8 +2,6 @@
 import { ref, onMounted } from "vue";
 
 import Test from "./components/Test.vue";
-import Search from "./components/Search.vue";
-import Card from "./components/Card.vue";
 
 const isDarkMode = ref(true);
 
