@@ -36,47 +36,48 @@ const emptyPokemon = () => {
   error.value = null;
   loading.value = true;
 };
-
 </script>
 
 <template>
   <div :class="isDarkMode ? 'dark-mode' : ''">
     <div
-      class="bg-white dark:bg-slate-800 px-6 py-8 ring-1 ring-slate-900/5 shadow-xl"
+      class="bg-white dark:bg-slate-800 px-6 py-8 ring-1 ring-slate-900/5 shadow-xl min-h-screen"
     >
-      <h3
-        class="text-slate-900 dark:text-white text-base font-medium tracking-tight"
-      >
-        Pokemon
-      </h3>
-      <div>
-        <select
-          class="select bg-white text-slate-900 dark:text-slate-400 dark:bg-slate-800 w-full max-w-xs"
-          v-model="selectedGenQuery"
+      <div class="flex justify-center items-center">
+        <h3
+          class="text-slate-900 dark:text-white text-base font-medium tracking-tight"
         >
-          <option selected disabled>Please select</option>
-          <option value="limit=151&offset=0">Generation 1</option> 
-          <option value="limit=100&offset=151">Generation 2</option>
-          <option value="limit=135&offset=251">Generation 3</option>
-          <option value="limit=107&offset=386">Generation 4</option>
-          <option value="limit=156&offset=493">Generation 5</option>
-          <option value="limit=72&offset=649">Generation 6</option>
-          <option value="limit=88&offset=721">Generation 7</option>
-          <option value="limit=96&offset=809">Generation 8</option>
-        </select>
+          Pokemon
+        </h3>
+        <div>
+          <select
+            class="select bg-white text-slate-900 dark:text-slate-400 dark:bg-slate-800 w-full max-w-xs"
+            v-model="selectedGenQuery"
+          >
+            <option selected disabled>Select Generation</option>
+            <option value="limit=151&offset=0">Generation 1</option>
+            <option value="limit=100&offset=151">Generation 2</option>
+            <option value="limit=135&offset=251">Generation 3</option>
+            <option value="limit=107&offset=386">Generation 4</option>
+            <option value="limit=156&offset=493">Generation 5</option>
+            <option value="limit=72&offset=649">Generation 6</option>
+            <option value="limit=88&offset=721">Generation 7</option>
+            <option value="limit=96&offset=809">Generation 8</option>
+          </select>
+        </div>
+        <button
+          @click="getPokemon"
+          class="btn mt-6 bg-indigo-500 text-white px-4 py-2 shadow-lg"
+        >
+          Search Pokemon
+        </button>
+        <button
+          @click="emptyPokemon"
+          class="btn mt-6 bg-indigo-500 text-white px-4 py-2 mx-4 shadow-lg"
+        >
+          Empty Pokemon
+        </button>
       </div>
-      <button
-        @click="getPokemon"
-        class="btn mt-6 bg-indigo-500 text-white px-4 py-2 shadow-lg"
-      >
-        Search Pokemon
-      </button>
-      <button
-        @click="emptyPokemon"
-        class="btn mt-6 bg-indigo-500 text-white px-4 py-2 mx-4 shadow-lg"
-      >
-        Empty Pokemon
-      </button>
       <div v-if="error" class="mt-4">
         <p class="text-slate-500 dark:text-slate-400 text-sm">
           {{ error.message }}
