@@ -43,7 +43,7 @@ const toggleDarkMode = () => {
           name="my_tabs_1"
           role="tab"
           class="tab text-slate-900 dark:text-slate-400 whitespace-nowrap"
-          aria-label="Tab 2"
+          aria-label="Compare"
         />
         <div role="tabpanel" class="tab-content p-10">
         </div>
