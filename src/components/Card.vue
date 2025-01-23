@@ -5,6 +5,8 @@ import { defineProps } from "vue";
 
 import { typeColorMap } from "@/utils/typeColourMap";
 
+import ToolTip from "./ToolTip.vue";
+
 const props = defineProps({
   isDarkMode: Boolean,
   name: String,
@@ -76,7 +78,7 @@ const testBtn = () => {
         </div>
       </figure>
       <div class="card-body">
-        <h2 class="card-title capitalize text-2xl">
+        <h2 class="card-title text-slate-900 dark:text-slate-400 capitalize text-2xl">
           {{ props.name }}
           <div
             v-for="type in types"
@@ -87,7 +89,7 @@ const testBtn = () => {
             {{ type }}
           </div>
         </h2>
-        <div v-if="!loading" class="text-base text-gray-500 dark:text-slate-400">
+        <div v-if="!loading" class="text-base text-slate-900 dark:text-slate-400">
           <p>
             National Number: {{ pokemon.id }}
             <br />
@@ -99,10 +101,8 @@ const testBtn = () => {
             Abilities:
          </p>
           <ul>
-            <li v-for="ability in pokemon.abilities" :key="ability.ability.name" class="capitalize">
-              <div class="tooltip tooltip-right" :data-tip="ability.ability.name">
-                {{ ability.ability.name }}
-              </div>
+            <li v-for="ability in pokemon.abilities" :key="ability.ability.name">
+              <ToolTip :url="ability.ability.url" />
             </li>
           </ul>
         </div>
