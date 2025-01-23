@@ -76,7 +76,7 @@ const testBtn = () => {
         </div>
       </figure>
       <div class="card-body">
-        <h2 class="card-title capitalize">
+        <h2 class="card-title capitalize text-2xl">
           {{ props.name }}
           <div
             v-for="type in types"
@@ -87,9 +87,25 @@ const testBtn = () => {
             {{ type }}
           </div>
         </h2>
-        <p v-if="!loading" class="text-sm text-gray-500 dark:text-slate-400">
-          National Number: {{ pokemon.id }}
-        </p>
+        <div v-if="!loading" class="text-base text-gray-500 dark:text-slate-400">
+          <p>
+            National Number: {{ pokemon.id }}
+            <br />
+            Height: {{ pokemon.height / 10 }}m
+            <br />
+            Weight: {{ pokemon.weight / 10 }}kg
+          </p>
+         <p class="mt-4 text-lg font-semibold" v-if="pokemon.abilities.length > 0">
+            Abilities:
+         </p>
+          <ul>
+            <li v-for="ability in pokemon.abilities" :key="ability.ability.name" class="capitalize">
+              <div class="tooltip tooltip-right" :data-tip="ability.ability.name">
+                {{ ability.ability.name }}
+              </div>
+            </li>
+          </ul>
+        </div>
         <button @click="testBtn" class="btn bg-indigo-500 text-white mt-4">
           Test
         </button>
