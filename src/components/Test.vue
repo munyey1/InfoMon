@@ -47,7 +47,7 @@ const emptyPokemon = () => {
         <h3
           class="text-slate-900 dark:text-white text-2xl font-semibold mb-4"
         >
-          Search Pokemon
+          Search Pokemon - Prototype 1
         </h3>
         <div class="mb-4">
           <select
