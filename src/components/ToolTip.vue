@@ -47,4 +47,8 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.tooltip {
+  --tooltip-color: #000;
+  --tooltip-text-color: #fff;
+}
 </style>
