@@ -45,15 +45,11 @@ const toggleShiny = () => {
   showShiny.value = !showShiny.value;
 };
 
-const testBtn = () => {
-  console.log(pokemon.value.height, pokemon.value.weight);
-  console.log(pokemon.value.abilities);
-};
 </script>
 
 <template>
   <div :class="isDarkMode ? 'dark-mode' : ''">
-    <div class="card bg-white dark:bg-slate-800 shadow-xl">
+    <div class="card bg-white dark:bg-slate-800 shadow-xl cursor-pointer">
       <div class="card-body">
         <h2 class="card-title text-slate-900 dark:text-slate-400 capitalize">
           {{ props.name }}
@@ -72,13 +68,15 @@ const testBtn = () => {
             />
           </div>
         </figure>
-        <div
-          v-for="type in types"
-          :key="type"
-          class="badge text-white capitalize font-semibold"
-          :class="typeColorMap[type] || 'bg-gray-500'"
-        >
-          {{ type }}
+        <div class="">
+          <div
+            v-for="type in types"
+            :key="type"
+            class="badge text-white capitalize font-semibold mr-2"
+            :class="typeColorMap[type] || 'bg-gray-500'"
+          >
+            {{ type }}
+          </div>
         </div>
         <div v-if="!loading" class="text-base font-semibold text-slate-900 dark:text-slate-400">
             #{{ pokemon.id }}
