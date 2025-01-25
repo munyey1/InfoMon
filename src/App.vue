@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-import Test from "./components/Test.vue";
+import Main from "./components/Main.vue";
 
 const isDarkMode = ref(true);
 
@@ -23,7 +23,7 @@ const toggleDarkMode = () => {
 <template>
   <main :class="isDarkMode ? 'dark-mode' : ''">
     <div
-      class="dark:bg-slate-900 bg-white min-h-screen "
+      class="dark:bg-slate-900 bg-white min-h-screen"
     >   
       <div role="tablist" class="tabs tabs-bordered">
         <input
@@ -35,7 +35,7 @@ const toggleDarkMode = () => {
           checked="checked"
         />
         <div role="tabpanel" class="tab-content px-10 py-6">
-          <Test :isDarkMode="isDarkMode" />
+          <Main :isDarkMode="isDarkMode" />
         </div>
 
         <input
