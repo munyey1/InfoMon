@@ -12,6 +12,8 @@ const allPokemon = ref([]);
 const loading = ref(true);
 const error = ref(null);
 
+const selectedPokemonUrl = ref("");
+
 const selectedGenQuery = ref("");
 
 const fetchPokemon = async () => {
@@ -36,8 +38,9 @@ const emptyPokemon = () => {
   error.value = null;
   loading.value = true;
 };
-const testBtn = () => {
-  console.log("test");
+const testBtn = (url) => {
+  console.log(url);
+  selectedPokemonUrl.value = url;
 };
 
 </script>
@@ -68,6 +71,9 @@ const testBtn = () => {
               Empty
             </button>
           </div>
+          <div class="capitalize text-slate-900 dark:text-slate-400 text-sm mt-4">
+            {{ selectedPokemonUrl }}
+          </div>
         </div>
       </div>
       <div class="col-span-2">
@@ -76,10 +82,10 @@ const testBtn = () => {
             {{ error.message }}
           </p>
         </div>
-        <div v-else class="mt-4 overflow-y-auto max-h-screen">
+        <div v-else class="mt-4 overflow-y-auto max-h-screen p-2">
           <div class="grid grid-cols-3 gap-2">
             <Card
-              @click="testBtn"
+              @click="testBtn(pokemon.name)"
               v-for="pokemon in allPokemon"
               :key="pokemon.name"
               :isDarkMode="isDarkMode"
