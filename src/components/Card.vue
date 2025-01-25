@@ -5,8 +5,6 @@ import { defineProps } from "vue";
 
 import { typeColorMap } from "@/utils/typeColourMap";
 
-import ToolTip from "./ToolTip.vue";
-
 const props = defineProps({
   isDarkMode: Boolean,
   name: String,
