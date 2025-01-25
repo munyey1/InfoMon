@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 
 import Card from "./Card.vue";
@@ -29,15 +29,14 @@ const fetchPokemon = async () => {
   }
 };
 
-const getPokemon = () => {
+onMounted(() => {
+  fetchPokemon();
+});
+
+const resetPokemon = () => {
   fetchPokemon();
 };
 
-const emptyPokemon = () => {
-  allPokemon.value = [];
-  error.value = null;
-  loading.value = true;
-};
 const testBtn = (url) => {
   console.log(url);
   selectedPokemonUrl.value = url;
@@ -58,18 +57,6 @@ const testBtn = (url) => {
             Search Pokemon - Prototype 2
           </h3>
           <div>
-            <button
-              @click="getPokemon"
-              class="btn bg-indigo-500 text-white px-4 py-2 mx-2 shadow-lg"
-            >
-              Search
-            </button>
-            <button
-              @click="emptyPokemon"
-              class="btn bg-indigo-500 text-white px-4 py-2 mx-2 shadow-lg"
-            >
-              Empty
-            </button>
           </div>
           <div class="capitalize text-slate-900 dark:text-slate-400 text-sm mt-4">
             {{ selectedPokemonUrl }}
@@ -77,6 +64,17 @@ const testBtn = (url) => {
         </div>
       </div>
       <div class="col-span-2">
+        <button
+          class="btn bg-indigo-500 text-white px-4 py-2 mx-2 shadow-lg"
+        >
+          Search "Dummy"
+        </button>
+        <button
+          @click="resetPokemon"
+          class="btn bg-indigo-500 text-white px-4 py-2 mx-2 shadow-lg"
+        >
+          Empty
+        </button>
         <div v-if="error" class="mt-4">
           <p class="text-slate-500 dark:text-slate-400 text-sm">
             {{ error.message }}
