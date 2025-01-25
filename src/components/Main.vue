@@ -64,8 +64,16 @@ const testBtn = (url) => {
         </div>
       </div>
       <div class="col-span-2">
+        <div>
+          <input
+            v-model="selectedGenQuery"
+            type="text"
+            class="input mb-4 dark:bg-slate-900 bg-white text-slate-900 dark:text-slate-400 shadow-lg"
+            placeholder="Search Pokemon"
+          />
+        </div>
         <button
-          class="btn bg-indigo-500 text-white px-4 py-2 mx-2 shadow-lg"
+          class="btn bg-indigo-500 text-white px-4 py-2 mr-2 shadow-lg"
         >
           Search "Dummy"
         </button>
