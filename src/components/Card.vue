@@ -53,7 +53,7 @@ const toggleShiny = () => {
           {{ props.name }}
         </h2>
         <figure>
-          <div class="">
+          <div>
             <img
               v-if="showShiny"
               :src="spriteUrl.front_shiny"
