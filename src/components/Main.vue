@@ -56,10 +56,8 @@ const testBtn = (url) => {
           >
             Search Pokemon - Prototype 2
           </h3>
-          <div>
-          </div>
-          <div class="capitalize text-slate-900 dark:text-slate-400 text-sm mt-4">
-            <Info v-if="selectedPokemonUrl" :url="selectedPokemonUrl" :key="selectedPokemonUrl" />
+          <div class="capitalize text-slate-900 dark:text-slate-400 text-sm mt-4 w-full">
+            <Info v-if="selectedPokemonUrl" :url="selectedPokemonUrl" :key="selectedPokemonUrl" :isDarkMode="isDarkMode"/>
           </div>
         </div>
       </div>
