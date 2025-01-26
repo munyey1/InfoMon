@@ -23,7 +23,7 @@ const toggleDarkMode = () => {
 <template>
   <main :class="isDarkMode ? 'dark-mode' : ''">
     <div
-      class="dark:bg-slate-900 bg-white min-h-screen"
+      class="dark:bg-slate-900 bg-white h-screen max-h-screen"
     >   
       <div role="tablist" class="tabs tabs-bordered">
         <input

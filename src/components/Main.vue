@@ -47,21 +47,16 @@ const testBtn = (url) => {
 <template>
   <div :class="isDarkMode ? 'dark-mode' : ''">
     <div
-      class="bg-white dark:bg-slate-800 px-6 py-8 ring ring-slate-900/5 shadow-xl min-h-screen grid grid-cols-5"
+      class="bg-white dark:bg-slate-800 px-6 py-8 ring ring-slate-900/5 shadow-xl max-h-screen grid grid-cols-5"
     >
-      <div class="col-span-3">
+      <div class="col-span-3 overflow-y-auto max-h-screen">
         <div class="flex flex-col justify-center items-center">
-          <h3
-            class="text-slate-900 dark:text-white text-2xl font-semibold mb-4"
-          >
-            Search Pokemon - Prototype 2
-          </h3>
           <div class="capitalize text-slate-900 dark:text-slate-400 text-sm mt-4 w-full">
             <Info v-if="selectedPokemonUrl" :url="selectedPokemonUrl" :key="selectedPokemonUrl" :isDarkMode="isDarkMode"/>
           </div>
         </div>
       </div>
-      <div class="col-span-2">
+      <div class="col-span-2 max-h-screen">
         <div>
           <input
             v-model="selectedGenQuery"
@@ -70,23 +65,25 @@ const testBtn = (url) => {
             placeholder="Search Pokemon"
           />
         </div>
-        <button
-          class="btn bg-indigo-500 text-white px-4 py-2 mr-2 shadow-lg"
-        >
-          Search "Dummy"
-        </button>
-        <button
-          @click="resetPokemon"
-          class="btn bg-indigo-500 text-white px-4 py-2 mx-2 shadow-lg"
-        >
-          Empty
-        </button>
+        <div>
+          <button
+            class="btn bg-indigo-500 text-white px-4 py-2 mr-2 shadow-lg"
+          >
+            Search "Dummy"
+          </button>
+          <button
+            @click="resetPokemon"
+            class="btn bg-indigo-500 text-white px-4 py-2 mx-2 shadow-lg"
+          >
+            Empty
+          </button>
+        </div>
         <div v-if="error" class="mt-4">
           <p class="text-slate-500 dark:text-slate-400 text-sm">
             {{ error.message }}
           </p>
         </div>
-        <div v-else class="mt-4 overflow-y-auto max-h-screen p-2">
+        <div v-else class="mt-4 overflow-y-auto h-full max-h-[calc(100vh-200px)] p-2">
           <div class="grid grid-cols-3 gap-2">
             <Card
               @click="testBtn(pokemon.url)"
