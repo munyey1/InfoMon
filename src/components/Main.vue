@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 
 import Card from "./Card.vue";
+import Info from "./Info.vue";
 
 const props = defineProps({
   isDarkMode: Boolean,
@@ -38,7 +39,6 @@ const resetPokemon = () => {
 };
 
 const testBtn = (url) => {
-  console.log(url);
   selectedPokemonUrl.value = url;
 };
 
@@ -59,7 +59,7 @@ const testBtn = (url) => {
           <div>
           </div>
           <div class="capitalize text-slate-900 dark:text-slate-400 text-sm mt-4">
-            {{ selectedPokemonUrl }}
+            <Info v-if="selectedPokemonUrl" :url="selectedPokemonUrl" :key="selectedPokemonUrl" />
           </div>
         </div>
       </div>
@@ -91,7 +91,7 @@ const testBtn = (url) => {
         <div v-else class="mt-4 overflow-y-auto max-h-screen p-2">
           <div class="grid grid-cols-3 gap-2">
             <Card
-              @click="testBtn(pokemon.name)"
+              @click="testBtn(pokemon.url)"
               v-for="pokemon in allPokemon"
               :key="pokemon.name"
               :isDarkMode="isDarkMode"
