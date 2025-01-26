@@ -16,7 +16,6 @@ const loading = ref(true);
 const error = ref(null);
 
 const sprites = ref([]);
-const imgUrl = ref("");
 const showShiny = ref(false);
 
 const types = ref([]);
@@ -26,9 +25,12 @@ const fetchPokemon = async () => {
     const response = await axios.get(props.url);
 
     pokemon.value = response.data;
-    sprites.value = response.data.sprites.other["official-artwork"];
-    imgUrl.value =
-      response.data.sprites.other["official-artwork"].front_default;
+    const allSprites = response.data.sprites;
+
+    sprites.value = Object.values(allSprites).filter(
+      (sprite) => typeof sprite === "string" && sprite !== null
+    );
+
     types.value = pokemon.value.types.map((type) => type.type.name);
   } catch (err) {
     error.value = err;
@@ -64,10 +66,18 @@ onMounted(() => {
           {{ type }}
         </div>
       </div>
-      <figure class="col-span-2">
-        <img v-if="showShiny" :src="sprites.front_shiny" />
-        <img v-else :src="sprites.front_default" />
+      <figure class="">
+        <img
+          v-if="showShiny"
+          :src="pokemon.sprites.other['official-artwork'].front_shiny"
+        />
+        <img v-else :src="pokemon.sprites.other['official-artwork'].front_default" />
       </figure>
+      <div class="grid grid-cols-2 w-full justify-items-stretch content-center">
+        <figure v-for="sprite in sprites">
+          <img :key="sprite" :src="sprite" class="h-auto" />
+        </figure>
+      </div>
       <button
         @click="showShiny = !showShiny"
         class="col-span-2 btn bg-indigo-500 text-white -mt- mb-10"
