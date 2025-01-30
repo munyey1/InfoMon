@@ -66,18 +66,13 @@ onMounted(() => {
           {{ type }}
         </div>
       </div>
-      <figure class="">
+      <figure class="col-span-2">
         <img
           v-if="showShiny"
           :src="pokemon.sprites.other['official-artwork'].front_shiny"
         />
         <img v-else :src="pokemon.sprites.other['official-artwork'].front_default" />
       </figure>
-      <div class="grid grid-cols-2 w-full justify-items-stretch content-center">
-        <figure v-for="sprite in sprites">
-          <img :key="sprite" :src="sprite" class="h-auto" />
-        </figure>
-      </div>
       <button
         @click="showShiny = !showShiny"
         class="col-span-2 btn bg-indigo-500 text-white -mt- mb-10"
@@ -109,6 +104,20 @@ onMounted(() => {
             </li>
           </ul>
         </div>
+      </div>
+      <div class="col-span-2 mt-10">
+        <div class="text-2xl">
+          <p class="font-bold">Sprites</p>
+          <div class="grid grid-cols-2 gap-2">
+            <img
+              v-for="sprite in sprites"
+              :key="sprite"
+              :src="sprite"
+              class="w-24 h-24"
+            />
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

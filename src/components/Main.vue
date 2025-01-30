@@ -47,16 +47,19 @@ const testBtn = (url) => {
 <template>
   <div :class="isDarkMode ? 'dark-mode' : ''">
     <div
-      class="bg-white dark:bg-slate-800 px-6 py-8 ring ring-slate-900/5 shadow-xl max-h-screen grid grid-cols-5"
+      class="bg-white dark:bg-slate-800 px-6 py-8 ring ring-slate-900/5 shadow-xl grid grid-cols-5" 
     >
-      <div class="col-span-3 overflow-y-auto max-h-screen">
+      <div class="col-span-3 p-2">
         <div class="flex flex-col justify-center items-center">
-          <div class="capitalize text-slate-900 dark:text-slate-400 text-sm mt-4 w-full">
-            <Info v-if="selectedPokemonUrl" :url="selectedPokemonUrl" :key="selectedPokemonUrl" :isDarkMode="isDarkMode"/>
+          <div v-if="selectedPokemonUrl" class="capitalize text-slate-900 dark:text-slate-400 text-sm mt-4 w-full">
+            <Info :url="selectedPokemonUrl" :key="selectedPokemonUrl" :isDarkMode="isDarkMode"/>
           </div>
+          <p v-else class="text-slate-900 dark:text-slate-400 text-2xl font-bold mt-4">
+            Select a Pokemon to view more information
+          </p>
         </div>
       </div>
-      <div class="col-span-2 max-h-screen">
+      <div class="col-span-2 p-2 h-full">
         <div>
           <input
             v-model="selectedGenQuery"
@@ -83,7 +86,7 @@ const testBtn = (url) => {
             {{ error.message }}
           </p>
         </div>
-        <div v-else class="mt-4 overflow-y-auto h-full max-h-[calc(100vh-200px)] p-2">
+        <div v-else class="mt-4 overflow-y-auto h-full p-2">
           <div class="grid grid-cols-3 gap-2">
             <Card
               @click="testBtn(pokemon.url)"
