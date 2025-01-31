@@ -22,39 +22,14 @@ const toggleDarkMode = () => {
 
 <template>
   <main :class="isDarkMode ? 'dark-mode' : ''">
-    <div
-      class="dark:bg-slate-900 bg-white"
-    >   
-      <div role="tablist" class="tabs tabs-bordered">
-        <input
-          type="radio"
-          name="my_tabs_1"
-          role="tab"
-          class="tab text-slate-900 dark:text-slate-400 whitespace-nowrap ml-10"
-          aria-label="Search"
-          checked="checked"
-        />
-        <div role="tabpanel" class="tab-content px-10 py-6">
-          <Main :isDarkMode="isDarkMode" />
-        </div>
-
-        <input
-          type="radio"
-          name="my_tabs_1"
-          role="tab"
-          class="tab text-slate-900 dark:text-slate-400 whitespace-nowrap"
-          aria-label="Compare"
-        />
-        <div role="tabpanel" class="tab-content p-10">
-        </div>
-
-        <button
-          @click="toggleDarkMode"
-          class="btn mt-6 bg-indigo-500 text-white mx-4 shadow-lg whitespace-nowrap"
-        >
-          {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
-        </button>
-      </div>
+    <div class="dark:bg-slate-800 bg-white">
+      <button
+        @click="toggleDarkMode"
+        class="btn mt-6 bg-indigo-500 text-white mx-4 shadow-lg whitespace-nowrap"
+      >
+        {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
+      </button>
+      <Main :isDarkMode="isDarkMode" />
     </div>
   </main>
 </template>
