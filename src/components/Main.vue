@@ -45,9 +45,9 @@ const testBtn = (url) => {
 </script>
 
 <template>
-  <div :class="isDarkMode ? 'dark-mode' : ''">
+  <div :class="isDarkMode ? 'dark-mode' : ''" class="max-h-full">
     <div
-      class="bg-white dark:bg-slate-800 px-6 py-8 ring ring-slate-900/5 shadow-xl grid grid-cols-5" 
+      class="bg-white dark:bg-slate-800 px-6 py-8 shadow-xl grid grid-cols-5 max-h-full" 
     >
       <div class="col-span-3 p-2">
         <div class="flex flex-col justify-center items-center">
@@ -59,7 +59,7 @@ const testBtn = (url) => {
           </p>
         </div>
       </div>
-      <div class="col-span-2 p-2 h-full">
+      <div class="border-2 col-span-2 p-2 max-h-screen">
         <div>
           <input
             v-model="selectedGenQuery"
@@ -86,7 +86,7 @@ const testBtn = (url) => {
             {{ error.message }}
           </p>
         </div>
-        <div v-else class="mt-4 overflow-y-auto h-full p-2">
+        <div v-else class="border-2 mt-4 overflow-y-auto h-full max-h-screen p-2">
           <div class="grid grid-cols-3 gap-2">
             <Card
               @click="testBtn(pokemon.url)"
