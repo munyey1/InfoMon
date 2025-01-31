@@ -21,8 +21,8 @@ const toggleDarkMode = () => {
 </script>
 
 <template>
-  <main :class="isDarkMode ? 'dark-mode' : ''">
-    <div class="dark:bg-slate-800 bg-white">
+  <main :class="isDarkMode ? 'dark-mode' : ''" class="h-screen flex flex-col">
+    <div class="dark:bg-slate-800 bg-white min-h-screen">
       <button
         @click="toggleDarkMode"
         class="btn mt-6 bg-indigo-500 text-white mx-4 shadow-lg whitespace-nowrap"

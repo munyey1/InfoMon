@@ -71,7 +71,10 @@ onMounted(() => {
           v-if="showShiny"
           :src="pokemon.sprites.other['official-artwork'].front_shiny"
         />
-        <img v-else :src="pokemon.sprites.other['official-artwork'].front_default" />
+        <img
+          v-else
+          :src="pokemon.sprites.other['official-artwork'].front_default"
+        />
       </figure>
       <button
         @click="showShiny = !showShiny"
@@ -117,7 +120,6 @@ onMounted(() => {
             />
           </div>
         </div>
-
       </div>
     </div>
   </div>
