@@ -107,10 +107,8 @@ onMounted(() => {
             </li>
           </ul>
         </div>
-      </div>
-      <div class="col-span-2 mt-10">
-        <div class="text-2xl">
-          <p class="font-bold">Sprites</p>
+        <div class="mt-10">
+          <p class="text-2xl font-bold">Sprites</p>
           <div class="grid grid-cols-2 gap-2">
             <img
               v-for="sprite in sprites"
