@@ -1,11 +1,9 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
+import { ref, onMounted, computed } from "vue";
+import axios, { all } from "axios";
 
 import Card from "./components/Card.vue";
 import Info from "./components/Info.vue";
-
-import Main from "./components/Main.vue";
 
 const isDarkMode = ref(true);
 
@@ -15,7 +13,7 @@ const error = ref(null);
 
 const selectedPokemonUrl = ref("");
 
-const selectedGenQuery = ref("");
+const searchQuery = ref("");
 
 const fetchPokemon = async () => {
   const genUrl = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0/`;
@@ -30,15 +28,6 @@ const fetchPokemon = async () => {
   }
 };
 
-onMounted(() => {
-  fetchPokemon();
-  const savedTheme = localStorage.getItem("theme");
-
-  if (savedTheme === "dark") {
-    isDarkMode.value = true;
-  }
-});
-
 const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
 
@@ -49,18 +38,33 @@ const resetPokemon = () => {
   fetchPokemon();
 };
 
-const testBtn = (url) => {
+const selPokemon = (url) => {
   selectedPokemonUrl.value = url;
 };
+
+const filteredPokemon = computed(() => {
+  return allPokemon.value.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
+});
+
+onMounted(() => {
+  fetchPokemon();
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "dark") {
+    isDarkMode.value = true;
+  }
+});
 </script>
 
 <template>
   <main :class="isDarkMode ? 'dark-mode' : ''" class="h-screen flex flex-col">
     <div class="dark:bg-slate-800 bg-white min-h-screen">
       <div
-        class="bg-white dark:bg-slate-800 px-6 py-8 shadow-xl grid grid-cols-5 flex items-stretch"
+        class="bg-white dark:bg-slate-800 px-6 shadow-xl grid grid-cols-5 flex items-stretch"
       >
-        <div class="col-span-3 p-2 flex flex-col">
+        <div class="col-span-3 pt-6 flex flex-col">
           <button
             @click="toggleDarkMode"
             class="btn bg-indigo-500 text-white mx-4 shadow-lg whitespace-nowrap w-32"
@@ -86,11 +90,11 @@ const testBtn = (url) => {
             </p>
           </div>
         </div>
-        <div class="border-2 col-span-2 p-2 flex flex-col h-full">
+        <div class="col-span-2 flex flex-col pt-4 h-screen sticky top-0">
           <div>
             <div>
               <input
-                v-model="selectedGenQuery"
+                v-model="searchQuery"
                 type="text"
                 class="input mb-4 dark:bg-slate-900 bg-white text-slate-900 dark:text-slate-400 shadow-lg"
                 placeholder="Search Pokemon"
@@ -110,11 +114,12 @@ const testBtn = (url) => {
               </button>
             </div>
           </div>
-          <div class="border-2 mt-4 flex-grow overflow-y-auto h-screen p-2">
+          <div class="mt-4 flex-grow overflow-y-auto h-screen p-2">
             <div class="grid grid-cols-3 gap-2">
               <Card
-                @click="testBtn(pokemon.url)"
-                v-for="pokemon in allPokemon"
+                v-memo="[pokemon.url]"
+                @click="selPokemon(pokemon.url)"
+                v-for="pokemon in filteredPokemon"
                 :key="pokemon.name"
                 :isDarkMode="isDarkMode"
                 :name="pokemon.name"
