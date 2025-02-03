@@ -57,11 +57,13 @@ const toggleShiny = () => {
             <img
               v-if="showShiny"
               :src="spriteUrl.front_shiny"
+              loading="lazy"
               class="h-auto w-fit"
             />
             <img
               v-else
               :src="spriteUrl.front_default"
+              loading="lazy"
               class="h-auto w-full"
             />
           </div>
