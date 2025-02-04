@@ -14,15 +14,18 @@ const props = defineProps({
   <div :class="isDarkMode ? 'dark-mode' : ''">
     <div class="card bg-white dark:bg-slate-800 shadow-xl cursor-pointer">
       <div class="card-body">
-        <h2 class="card-title text-slate-900 dark:text-slate-400 capitalize">
+        <h2 class="card-title font-bold text-slate-900 dark:text-slate-400 capitalize">
           {{ props.pokemon.name }}
         </h2>
         <figure>
           <img
+            v-if="props.pokemon.sprites.front_default"
             :src="props.pokemon.sprites.front_default"
-            loading="lazy"
             class="h-auto w-full"
           />
+          <p v-else class="text-slate-900 dark:text-slate-400 text-center">
+            No Sprite Available
+          </p>
         </figure>
         <div class="">
           <div

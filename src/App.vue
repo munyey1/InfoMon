@@ -84,13 +84,13 @@ onMounted(() => {
           </button>
           <div class="flex flex-col items-center">
             <div
-              v-if="selectedPokemonUrl"
+              v-if="selectedPokemon"
               class="capitalize text-slate-900 dark:text-slate-400 text-sm mt-4 w-full"
             >
               <Info
-                :url="selectedPokemonUrl"
-                :key="selectedPokemonUrl"
+                :key="selectedPokemon.name"
                 :isDarkMode="isDarkMode"
+                :pokemon="selectedPokemon"
               />
             </div>
             <p
@@ -101,7 +101,7 @@ onMounted(() => {
             </p>
           </div>
         </div>
-        <div class="col-span-2 flex flex-col pt-4 h-screen sticky top-0">
+        <div class="col-span-2 flex flex-col pt-6 h-screen sticky top-0">
           <div>
             <div>
               <input
