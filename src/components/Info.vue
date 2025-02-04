@@ -1,6 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
+import { ref, computed } from "vue";
 
 import { typeColorMap } from "@/utils/typeColourMap";
 
@@ -8,72 +7,43 @@ import ToolTip from "./ToolTip.vue";
 
 const props = defineProps({
   isDarkMode: Boolean,
-  url: String,
+  pokemon: Object,
 });
 
-const pokemon = ref(null);
-const loading = ref(true);
-const error = ref(null);
-
-const sprites = ref([]);
 const showShiny = ref(false);
 
-const types = ref([]);
-
-const fetchPokemon = async () => {
-  try {
-    const response = await axios.get(props.url);
-
-    pokemon.value = response.data;
-    const allSprites = response.data.sprites;
-
-    sprites.value = Object.values(allSprites).filter(
-      (sprite) => typeof sprite === "string" && sprite !== null
-    );
-
-    types.value = pokemon.value.types.map((type) => type.type.name);
-  } catch (err) {
-    error.value = err;
-  } finally {
-    loading.value = false;
-  }
-};
-
-onMounted(() => {
-  fetchPokemon();
+const sprites = computed(() => {
+  if (!props.pokemon) return [];
+  return Object.values(props.pokemon.sprites).filter(
+    (sprite) => typeof sprite === "string"
+  ).filter(Boolean);
 });
 </script>
 
 <template>
-  <div :class="isDarkMode ? 'dark-mode' : ''" class="w-full">
-    <div v-if="error">
-      {{ error.message }}
-    </div>
-    <div
-      v-if="pokemon"
-      class="grid grid-cols-2 justify-items-center content-center"
-    >
-      <h1 class="text-2xl font-bold col-span-2 mb-4">
-        {{ pokemon.name }}
+  <div v-if="props.pokemon" :class="isDarkMode ? 'dark-mode' : ''" class="w-full pb-6">
+    <div class="grid grid-cols-2 justify-items-center content-center">
+      <h1 class="text-4xl font-bold col-span-2 mb-4">
+        {{ props.pokemon?.name || "Unknown Pokémon" }}
       </h1>
       <div class="col-span-2">
         <div
-          v-for="type in types"
-          :key="type"
+          v-for="type in props.pokemon.types"
+          :key="type.type.name"
           class="badge badge-lg text-white capitalize font-semibold mr-2"
-          :class="typeColorMap[type] || 'bg-gray-500'"
+          :class="typeColorMap[type.type.name] || 'bg-gray-500'"
         >
-          {{ type }}
+          {{ type.type.name }}
         </div>
       </div>
       <figure class="col-span-2">
         <img
           v-if="showShiny"
-          :src="pokemon.sprites.other['official-artwork'].front_shiny"
+          :src="props.pokemon.sprites.other['official-artwork'].front_shiny"
         />
         <img
           v-else
-          :src="pokemon.sprites.other['official-artwork'].front_default"
+          :src="props.pokemon.sprites.other['official-artwork'].front_default"
         />
       </figure>
       <button
@@ -82,41 +52,44 @@ onMounted(() => {
       >
         {{ showShiny ? "Show Default" : "Show Shiny" }}
       </button>
-      <div class="space-y-1">
-        <div class="text-base space-y-1">
+      <div>
+        <div class="font-semibold text-lg space-y-1">
           <p>
-            Pokedex No: <span class="font-bold">#{{ pokemon.id }}</span>
+            Pokedex No: <span class="font-bold">#{{ props.pokemon.id }}</span>
           </p>
           <p>
-            Height: <span class="font-bold">{{ pokemon.height / 10 }}m</span>
+            Height: <span class="font-bold">{{ props.pokemon.height / 10 }}m</span>
           </p>
           <p>
-            Weight: <span class="font-bold">{{ pokemon.weight / 10 }}kg</span>
+            Weight: <span class="font-bold">{{ props.pokemon.weight / 10 }}kg</span>
           </p>
         </div>
+        <div class="mt-10">
+        <p class="text-2xl font-bold">Sprites:</p>
+        <div class="grid grid-cols-2 gap-2">
+          <img
+            v-for="sprite in sprites"
+            :key="sprite"
+            :src="sprite"
+            class="h-auto w-full"
+          />
+        </div>
+        <p v-if="sprites.length === 0" class="text-lg text-slate-900 dark:text-slate-400">
+          No Sprites Available
+        </p>
+      </div>
       </div>
       <div>
-        <div class="text-base">
-          <p class="font-bold">Abilities</p>
+        <div>
+          <p class="text-2xl font-bold">Abilities</p>
           <ul>
             <li
-              v-for="ability in pokemon.abilities"
+              v-for="ability in props.pokemon.abilities"
               :key="ability.ability.name"
             >
               <ToolTip :url="ability.ability.url" />
             </li>
           </ul>
-        </div>
-        <div class="mt-10">
-          <p class="text-2xl font-bold">Sprites</p>
-          <div class="grid grid-cols-2 gap-2">
-            <img
-              v-for="sprite in sprites"
-              :key="sprite"
-              :src="sprite"
-              class="w-24 h-24"
-            />
-          </div>
         </div>
       </div>
     </div>
