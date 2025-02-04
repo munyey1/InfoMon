@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import axios, { all } from "axios";
+import axios from "axios";
 
 import Card from "./components/Card.vue";
 import Info from "./components/Info.vue";
@@ -13,7 +13,7 @@ const error = ref(null);
 
 const pokemonData = ref([]);
 
-const selectedPokemonUrl = ref("");
+const selectedPokemon = ref(null);
 const searchQuery = ref("");
 
 const fetchPokemon = async () => {
@@ -31,10 +31,8 @@ const fetchPokemon = async () => {
       const batchDetails = await Promise.all(
         batch.map((pokemon) => axios.get(pokemon.url).then((res) => res.data))
       );
-
       allPokemonDetails.push(...batchDetails);
     }
-    
     pokemonData.value = allPokemonDetails;
 
   } catch (err) {
@@ -50,12 +48,13 @@ const toggleDarkMode = () => {
   localStorage.setItem("theme", isDarkMode.value ? "dark" : "light");
 };
 
-const selPokemon = (url) => {
-  selectedPokemonUrl.value = url;
+const selPokemon = (pokemon) => {
+  console.log(pokemon);
+  selectedPokemon.value = pokemon;
 };
 
 const filteredPokemon = computed(() => {
-  return allPokemon.value.filter((pokemon) =>
+  return pokemonData.value.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchQuery.value.toLowerCase())
   );
 });
@@ -68,14 +67,6 @@ onMounted(() => {
     isDarkMode.value = true;
   }
 });
-
-const tstBtn = () => {
-  console.log(allPokemon, pokemonData.value);
-  for(let i = 0; i < 10; i++) {
-    console.log(allPokemon.value[i]);
-  }
-} 
-
 </script>
 
 <template>
@@ -119,21 +110,16 @@ const tstBtn = () => {
                 class="input dark:bg-slate-900 bg-white text-slate-900 dark:text-slate-400 shadow-lg"
                 placeholder="Search Pokemon"
               />
-              <button @click="tstBtn" class="btn bg-indigo-500 text-white">
-                test
-              </button>
             </div>
           </div>
           <div class="mt-4 flex-grow overflow-y-auto h-screen p-2">
             <div class="grid grid-cols-3 gap-2">
-              <Card
-                v-memo="[pokemon.url]"
-                @click="selPokemon(pokemon.url)"
+              <Card 
+                @click="selPokemon(pokemon)"
                 v-for="pokemon in filteredPokemon"
                 :key="pokemon.name"
                 :isDarkMode="isDarkMode"
-                :name="pokemon.name"
-                :url="pokemon.url"
+                :pokemon="pokemon"
               />
             </div>
           </div>
