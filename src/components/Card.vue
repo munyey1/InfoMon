@@ -1,41 +1,11 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
 import { defineProps } from "vue";
 
 import { typeColorMap } from "@/utils/typeColourMap";
 
 const props = defineProps({
   isDarkMode: Boolean,
-  name: String,
-  url: String,
-});
-
-const loading = ref(true);
-const error = ref(null);
-
-const pokemon = ref(null);
-const spriteUrl = ref([]);
-const types = ref([]);
-
-const fetchPokemon = async () => {
-  const genUrl = props.url;
-
-  try {
-    const response = await axios.get(genUrl);
-    pokemon.value = response.data;
-    spriteUrl.value = response.data.sprites;
-
-    types.value = pokemon.value.types.map((type) => type.type.name);
-  } catch (err) {
-    error.value = err;
-  } finally {
-    loading.value = false;
-  }
-};
-
-onMounted(() => {
-  fetchPokemon();
+  pokemon: Object,
 });
 
 </script>
@@ -45,27 +15,27 @@ onMounted(() => {
     <div class="card bg-white dark:bg-slate-800 shadow-xl cursor-pointer">
       <div class="card-body">
         <h2 class="card-title text-slate-900 dark:text-slate-400 capitalize">
-          {{ props.name }}
+          {{ props.pokemon.name }}
         </h2>
         <figure>
           <img
-            :src="spriteUrl.front_default"
+            :src="props.pokemon.sprites.front_default"
             loading="lazy"
             class="h-auto w-full"
           />
         </figure>
         <div class="">
           <div
-            v-for="type in types"
-            :key="type"
+            v-for="type in props.pokemon.types"
+            :key="type.type.name"
             class="badge text-white capitalize font-semibold mr-2"
-            :class="typeColorMap[type] || 'bg-gray-500'"
+            :class="typeColorMap[type.type.name] || 'bg-gray-500'"
           >
-            {{ type }}
+            {{ type.type.name }}
           </div>
         </div>
-        <div v-if="!loading" class="text-base font-semibold text-slate-900 dark:text-slate-400">
-            #{{ pokemon.id }}
+        <div class="text-base font-semibold text-slate-900 dark:text-slate-400">
+            #{{ props.pokemon.id }}
         </div>
       </div>
     </div>
