@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import axios from "axios";
+import axios, { all } from "axios";
 
 import Card from "./components/Card.vue";
 import Info from "./components/Info.vue";
@@ -11,8 +11,9 @@ const allPokemon = ref([]);
 const loading = ref(true);
 const error = ref(null);
 
-const selectedPokemonUrl = ref("");
+const pokemonData = ref([]);
 
+const selectedPokemonUrl = ref("");
 const searchQuery = ref("");
 
 const fetchPokemon = async () => {
@@ -21,6 +22,21 @@ const fetchPokemon = async () => {
   try {
     const response = await axios.get(genUrl);
     allPokemon.value = response.data.results;
+
+    const batchSize = 200;
+    const allPokemonDetails = [];
+
+    for(let i = 0; i < allPokemon.value.length; i += batchSize) {
+      const batch = allPokemon.value.slice(i, i + batchSize);
+      const batchDetails = await Promise.all(
+        batch.map((pokemon) => axios.get(pokemon.url).then((res) => res.data))
+      );
+
+      allPokemonDetails.push(...batchDetails);
+    }
+    
+    pokemonData.value = allPokemonDetails;
+
   } catch (err) {
     error.value = err;
   } finally {
@@ -52,6 +68,14 @@ onMounted(() => {
     isDarkMode.value = true;
   }
 });
+
+const tstBtn = () => {
+  console.log(allPokemon, pokemonData.value);
+  for(let i = 0; i < 10; i++) {
+    console.log(allPokemon.value[i]);
+  }
+} 
+
 </script>
 
 <template>
@@ -95,6 +119,9 @@ onMounted(() => {
                 class="input dark:bg-slate-900 bg-white text-slate-900 dark:text-slate-400 shadow-lg"
                 placeholder="Search Pokemon"
               />
+              <button @click="tstBtn" class="btn bg-indigo-500 text-white">
+                test
+              </button>
             </div>
           </div>
           <div class="mt-4 flex-grow overflow-y-auto h-screen p-2">
