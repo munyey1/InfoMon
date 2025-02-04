@@ -53,7 +53,7 @@ const sprites = computed(() => {
         {{ showShiny ? "Show Default" : "Show Shiny" }}
       </button>
       <div>
-        <div class="font-semibold text-lg space-y-1">
+        <div class="font-semibold text-base space-y-1">
           <p>
             Pokedex No: <span class="font-bold">#{{ props.pokemon.id }}</span>
           </p>
