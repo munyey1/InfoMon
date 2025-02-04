@@ -17,7 +17,6 @@ const error = ref(null);
 const pokemon = ref(null);
 const spriteUrl = ref([]);
 const types = ref([]);
-const showShiny = ref(false);
 
 const fetchPokemon = async () => {
   const genUrl = props.url;
@@ -39,10 +38,6 @@ onMounted(() => {
   fetchPokemon();
 });
 
-const toggleShiny = () => {
-  showShiny.value = !showShiny.value;
-};
-
 </script>
 
 <template>
@@ -53,20 +48,11 @@ const toggleShiny = () => {
           {{ props.name }}
         </h2>
         <figure>
-          <div>
-            <img
-              v-if="showShiny"
-              :src="spriteUrl.front_shiny"
-              loading="lazy"
-              class="h-auto w-fit"
-            />
-            <img
-              v-else
-              :src="spriteUrl.front_default"
-              loading="lazy"
-              class="h-auto w-full"
-            />
-          </div>
+          <img
+            :src="spriteUrl.front_default"
+            loading="lazy"
+            class="h-auto w-full"
+          />
         </figure>
         <div class="">
           <div

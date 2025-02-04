@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import axios, { all } from "axios";
+import axios from "axios";
 
 import Card from "./components/Card.vue";
 import Info from "./components/Info.vue";
@@ -32,10 +32,6 @@ const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
 
   localStorage.setItem("theme", isDarkMode.value ? "dark" : "light");
-};
-
-const resetPokemon = () => {
-  fetchPokemon();
 };
 
 const selPokemon = (url) => {
@@ -96,22 +92,9 @@ onMounted(() => {
               <input
                 v-model="searchQuery"
                 type="text"
-                class="input mb-4 dark:bg-slate-900 bg-white text-slate-900 dark:text-slate-400 shadow-lg"
+                class="input dark:bg-slate-900 bg-white text-slate-900 dark:text-slate-400 shadow-lg"
                 placeholder="Search Pokemon"
               />
-              <button
-                class="btn bg-indigo-500 text-white mx-4 py-2 mr-2 shadow-lg"
-              >
-                Search "Dummy"
-              </button>
-            </div>
-            <div>
-              <button
-                @click="resetPokemon"
-                class="btn bg-indigo-500 text-white px-4 shadow-lg"
-              >
-                Empty
-              </button>
             </div>
           </div>
           <div class="mt-4 flex-grow overflow-y-auto h-screen p-2">
