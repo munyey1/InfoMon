@@ -26,7 +26,7 @@ const fetchPokemon = async () => {
     const batchSize = 200;
     const allPokemonDetails = [];
 
-    for(let i = 0; i < allPokemon.value.length; i += batchSize) {
+    for (let i = 0; i < allPokemon.value.length; i += batchSize) {
       const batch = allPokemon.value.slice(i, i + batchSize);
       const batchDetails = await Promise.all(
         batch.map((pokemon) => axios.get(pokemon.url).then((res) => res.data))
@@ -34,7 +34,6 @@ const fetchPokemon = async () => {
       allPokemonDetails.push(...batchDetails);
     }
     pokemonData.value = allPokemonDetails;
-
   } catch (err) {
     error.value = err;
   } finally {
@@ -113,8 +112,12 @@ onMounted(() => {
             </div>
           </div>
           <div class="mt-4 flex-grow overflow-y-auto h-screen p-2">
-            <div class="grid grid-cols-3 gap-2">
-              <Card 
+            <div v-if="loading">
+              Loading...
+              <span class="loading loading-spinner loading-lg"></span>
+            </div>
+            <div v-else class="grid grid-cols-3 gap-2">
+              <Card
                 @click="selPokemon(pokemon)"
                 v-for="pokemon in filteredPokemon"
                 :key="pokemon.name"
