@@ -40,7 +40,7 @@ onMounted(() => {
   <div>
     <div v-if="loading">Loading...</div>
     <div v-else-if="error">Error: {{ error.message }}</div>
-    <div v-if="abilityEntry" class="tooltip tooltip-left" :data-tip="abilityEntry.effect">
+    <div v-if="abilityEntry" class="tooltip tooltip-top" :data-tip="abilityEntry.effect">
       <h1 class="cursor-pointer capitalize text-base font-semibold">{{ ability.name }}</h1>
     </div>
   </div>
