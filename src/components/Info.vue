@@ -33,11 +33,11 @@ const showModal = (sprite) => {
     :class="isDarkMode ? 'dark-mode' : ''"
     class="w-full pb-6"
   >
-    <div class="grid grid-cols-2 justify-items-center content-center">
-      <h1 class="text-4xl font-bold col-span-2 mb-4">
+    <div class="grid grid-cols-3 justify-items-center content-center">
+      <h1 class="text-4xl font-bold col-span-3 mb-4">
         {{ props.pokemon?.name || "Unknown Pokémon" }}
       </h1>
-      <div class="col-span-2">
+      <div class="col-span-3">
         <div
           v-for="type in props.pokemon.types"
           :key="type.type.name"
@@ -57,64 +57,65 @@ const showModal = (sprite) => {
           :src="props.pokemon.sprites.other['official-artwork'].front_default"
         />
       </figure>
+      <div class="flex flex-col justify-center items-center col-span-1">
+        <p class="text-2xl font-bold">Sprites:</p>
+        <div class="grid grid-cols-2 gap-2">
+          <button v-for="sprite in sprites" @click="showModal(sprite)">
+            <img :key="sprite" :src="sprite" class="h-auto w-full" />
+          </button>
+        </div>
+        <p
+          v-if="sprites.length === 0"
+          class="text-lg text-slate-900 dark:text-slate-400"
+        >
+          No Sprites Available
+        </p>
+        <dialog id="img_modal" class="modal">
+          <div class="modal-box dark:bg-slate-900 bg-white p-4">
+            <img :src="selSprite" class="h-auto w-full" alt="Pokemon Sprite" />
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+      </div>
       <button
         @click="showShiny = !showShiny"
-        class="col-span-2 btn bg-indigo-500 text-white -mt- mb-10"
+        class="col-span-3 btn bg-indigo-500 text-white -mt- mb-10"
       >
         {{ showShiny ? "Show Default" : "Show Shiny" }}
       </button>
-      <div>
-        <div class="font-semibold text-base space-y-1">
-          <p>
-            Pokedex No: <span class="font-bold">#{{ props.pokemon.id }}</span>
-          </p>
-          <p>
-            Height:
-            <span class="font-bold">{{ props.pokemon.height / 10 }}m</span>
-          </p>
-          <p>
-            Weight:
-            <span class="font-bold">{{ props.pokemon.weight / 10 }}kg</span>
-          </p>
-        </div>
-        <div class="mt-10">
-          <p class="text-2xl font-bold">Sprites:</p>
-          <div class="grid grid-cols-2 gap-2">
-            <button v-for="sprite in sprites" @click="showModal(sprite)">
-              <img :key="sprite" :src="sprite" class="h-auto w-full" />
-            </button>
-          </div>
-          <p
-            v-if="sprites.length === 0"
-            class="text-lg text-slate-900 dark:text-slate-400"
-          >
-            No Sprites Available
-          </p>
-          <dialog id="img_modal" class="modal">
-            <div class="modal-box">
-              <img 
-                :src="selSprite" 
-                class="h-auto w-full" 
-                alt="Pokemon Sprite"
-              />
+      <div class="col-span-3">
+        <div class="grid grid-cols-2 gap-4 justify-items-center content-center">
+          <p class="col-span-2 text-2xl font-bold">PokeDex Data</p>
+          <div>
+            <div class="font-semibold text-base space-y-1">
+              <p>
+                Pokedex No: <span class="font-bold">#{{ props.pokemon.id }}</span>
+              </p>
+              <p>
+                Height:
+                <span class="font-bold">{{ props.pokemon.height / 10 }}m</span>
+              </p>
+              <p>
+                Weight:
+                <span class="font-bold">{{ props.pokemon.weight / 10 }}kg</span>
+              </p>
             </div>
-            <form method="dialog" class="modal-backdrop">
-              <button>close</button>
-            </form>
-          </dialog>
-        </div>
-      </div>
-      <div>
-        <div>
-          <p class="text-2xl font-bold">Abilities</p>
-          <ul>
-            <li
-              v-for="ability in props.pokemon.abilities"
-              :key="ability.ability.name"
-            >
-              <ToolTip :url="ability.ability.url" />
-            </li>
-          </ul>
+          </div>
+          <div>
+            <div>
+              <p class="text-xl font-bold">Abilities</p>
+              <ul>
+                <li
+                  v-for="ability in props.pokemon.abilities"
+                  :key="ability.ability.name"
+                >
+                  <ToolTip :url="ability.ability.url" />
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
