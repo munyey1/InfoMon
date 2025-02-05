@@ -11,17 +11,28 @@ const props = defineProps({
 });
 
 const showShiny = ref(false);
+const selSprite = ref(null);
 
 const sprites = computed(() => {
   if (!props.pokemon) return [];
-  return Object.values(props.pokemon.sprites).filter(
-    (sprite) => typeof sprite === "string"
-  ).filter(Boolean);
+  return Object.values(props.pokemon.sprites)
+    .filter((sprite) => typeof sprite === "string")
+    .filter(Boolean);
 });
+
+const showModal = (sprite) => {
+  selSprite.value = sprite;
+  const modal = document.getElementById("img_modal");
+  modal.showModal();
+};
 </script>
 
 <template>
-  <div v-if="props.pokemon" :class="isDarkMode ? 'dark-mode' : ''" class="w-full pb-6">
+  <div
+    v-if="props.pokemon"
+    :class="isDarkMode ? 'dark-mode' : ''"
+    class="w-full pb-6"
+  >
     <div class="grid grid-cols-2 justify-items-center content-center">
       <h1 class="text-4xl font-bold col-span-2 mb-4">
         {{ props.pokemon?.name || "Unknown Pokémon" }}
@@ -58,26 +69,40 @@ const sprites = computed(() => {
             Pokedex No: <span class="font-bold">#{{ props.pokemon.id }}</span>
           </p>
           <p>
-            Height: <span class="font-bold">{{ props.pokemon.height / 10 }}m</span>
+            Height:
+            <span class="font-bold">{{ props.pokemon.height / 10 }}m</span>
           </p>
           <p>
-            Weight: <span class="font-bold">{{ props.pokemon.weight / 10 }}kg</span>
+            Weight:
+            <span class="font-bold">{{ props.pokemon.weight / 10 }}kg</span>
           </p>
         </div>
         <div class="mt-10">
-        <p class="text-2xl font-bold">Sprites:</p>
-        <div class="grid grid-cols-2 gap-2">
-          <img
-            v-for="sprite in sprites"
-            :key="sprite"
-            :src="sprite"
-            class="h-auto w-full"
-          />
+          <p class="text-2xl font-bold">Sprites:</p>
+          <div class="grid grid-cols-2 gap-2">
+            <button v-for="sprite in sprites" @click="showModal(sprite)">
+              <img :key="sprite" :src="sprite" class="h-auto w-full" />
+            </button>
+          </div>
+          <p
+            v-if="sprites.length === 0"
+            class="text-lg text-slate-900 dark:text-slate-400"
+          >
+            No Sprites Available
+          </p>
+          <dialog id="img_modal" class="modal">
+            <div class="modal-box">
+              <img 
+                :src="selSprite" 
+                class="h-auto w-full" 
+                alt="Pokemon Sprite"
+              />
+            </div>
+            <form method="dialog" class="modal-backdrop">
+              <button>close</button>
+            </form>
+          </dialog>
         </div>
-        <p v-if="sprites.length === 0" class="text-lg text-slate-900 dark:text-slate-400">
-          No Sprites Available
-        </p>
-      </div>
       </div>
       <div>
         <div>
