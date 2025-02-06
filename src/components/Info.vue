@@ -20,6 +20,14 @@ const sprites = computed(() => {
     .filter(Boolean);
 });
 
+const stats = computed(() => {
+  if (!props.pokemon) return [];
+  return props.pokemon.stats.map((stat) => ({
+    name: stat.stat.name,
+    base_stat: stat.base_stat,
+  }));
+});
+
 const showModal = (sprite) => {
   selSprite.value = sprite;
   const modal = document.getElementById("img_modal");
@@ -33,6 +41,7 @@ const showModal = (sprite) => {
     :class="isDarkMode ? 'dark-mode' : ''"
     class="w-full pb-6"
   >
+    <!--Top Half-->
     <div class="grid grid-cols-3 justify-items-center content-center">
       <h1 class="text-4xl font-bold col-span-3 mb-4">
         {{ props.pokemon?.name || "Unknown Pokémon" }}
@@ -57,6 +66,7 @@ const showModal = (sprite) => {
           :src="props.pokemon.sprites.other['official-artwork'].front_default"
         />
       </figure>
+      <!--Sprites-->
       <div class="flex flex-col justify-center items-center col-span-1">
         <p class="text-2xl font-bold">Sprites:</p>
         <div class="grid grid-cols-2 gap-2">
@@ -85,37 +95,48 @@ const showModal = (sprite) => {
       >
         {{ showShiny ? "Show Default" : "Show Shiny" }}
       </button>
-      <div class="col-span-3">
-        <div class="grid grid-cols-2 gap-4 justify-items-center content-center">
-          <p class="col-span-2 text-2xl font-bold">PokeDex Data</p>
-          <div>
-            <div class="font-semibold text-base space-y-1">
-              <p>
-                Pokedex No: <span class="font-bold">#{{ props.pokemon.id }}</span>
-              </p>
-              <p>
-                Height:
-                <span class="font-bold">{{ props.pokemon.height / 10 }}m</span>
-              </p>
-              <p>
-                Weight:
-                <span class="font-bold">{{ props.pokemon.weight / 10 }}kg</span>
-              </p>
-            </div>
-          </div>
-          <div>
-            <div>
-              <p class="text-xl font-bold">Abilities</p>
-              <ul>
-                <li
-                  v-for="ability in props.pokemon.abilities"
-                  :key="ability.ability.name"
-                >
-                  <ToolTip :url="ability.ability.url" />
-                </li>
-              </ul>
-            </div>
-          </div>
+    </div>
+    <!--Bottom Half-->
+    <div class="grid grid-cols-2 justify-items-center content-center">
+      <p class="col-span-2 text-2xl font-bold mb-4">PokeDex Data</p>
+      <!--Basic Info-->
+      <div>
+        <div class="font-semibold text-base space-y-1">
+          <p>
+            Pokedex No: <span class="font-bold">#{{ props.pokemon.id }}</span>
+          </p>
+          <p>
+            Height:
+            <span class="font-bold">{{ props.pokemon.height / 10 }}m</span>
+          </p>
+          <p>
+            Weight:
+            <span class="font-bold">{{ props.pokemon.weight / 10 }}kg</span>
+          </p>
+        </div>
+        <!--Stats-->
+        <div class="mt-10">
+          <p class="text-xl font-bold">Stats</p>
+          <ul class="text-base space-y-1">
+            <li v-for="stat in stats" :key="stat.name">
+              {{ stat.name }}:
+              <span class="font-bold">{{ stat.base_stat }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <!--Abilities-->
+        <div>
+          <p class="text-xl font-bold">Abilities</p>
+          <ul>
+            <li
+              v-for="ability in props.pokemon.abilities"
+              :key="ability.ability.name"
+            >
+              <ToolTip :url="ability.ability.url" />
+            </li>
+          </ul>
         </div>
       </div>
     </div>
