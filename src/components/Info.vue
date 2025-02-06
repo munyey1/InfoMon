@@ -121,6 +121,8 @@ const showModal = (sprite) => {
             <li v-for="stat in stats" :key="stat.name">
               {{ stat.name }}:
               <span class="font-bold">{{ stat.base_stat }}</span>
+              <br />
+              <progress class="progress progress-primary w-56 mb-2" :value="stat.base_stat" max="100"></progress>
             </li>
           </ul>
         </div>
