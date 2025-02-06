@@ -101,15 +101,13 @@ onMounted(() => {
           </div>
         </div>
         <div class="col-span-2 flex flex-col pt-6 h-screen sticky top-0">
-          <div>
-            <div>
-              <input
-                v-model="searchQuery"
-                type="text"
-                class="input dark:bg-slate-900 bg-white text-slate-900 dark:text-slate-400 shadow-lg"
-                placeholder="Search Pokemon"
-              />
-            </div>
+          <div class="p-2">
+            <input
+              v-model="searchQuery"
+              type="text"
+              class="input dark:bg-slate-900 bg-white text-slate-900 dark:text-slate-400 shadow-lg"
+              placeholder="Search Pokemon"
+            />
           </div>
           <div class="mt-4 flex-grow overflow-y-auto h-screen p-2">
             <div v-if="loading">
