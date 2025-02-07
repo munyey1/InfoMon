@@ -33,6 +33,15 @@ const showModal = (sprite) => {
   const modal = document.getElementById("img_modal");
   modal.showModal();
 };
+
+const maxStat = (name, stat) => {
+  if (name === "hp") {
+    return Math.floor((stat * 2) + 204);
+  } else {
+    return Math.floor(((stat * 2) + 99) * 1.1);
+  }
+}
+
 </script>
 
 <template>
@@ -116,13 +125,14 @@ const showModal = (sprite) => {
         </div>
         <!--Stats-->
         <div class="mt-10">
-          <p class="text-xl font-bold">Stats</p>
+          <p class="text-xl font-bold">Base Stats</p>
           <ul class="text-base space-y-1">
-            <li v-for="stat in stats" :key="stat.name">
+            <li class="mb-2" v-for="stat in stats" :key="stat.name">
               {{ stat.name }}:
               <span class="font-bold">{{ stat.base_stat }}</span>
               <br />
-              <progress class="progress progress-primary w-56 mb-2" :value="stat.base_stat" max="100"></progress>
+              <progress class="progress progress-primary w-56" :value="stat.base_stat" :max="maxStat(stat.name, stat.base_stat)"></progress>
+              Max: <span class="font-bold">{{ maxStat(stat.name, stat.base_stat) }}</span>
             </li>
           </ul>
         </div>

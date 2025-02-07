@@ -34,6 +34,7 @@ const fetchPokemon = async () => {
       allPokemonDetails.push(...batchDetails);
     }
     pokemonData.value = allPokemonDetails;
+
   } catch (err) {
     error.value = err;
   } finally {
@@ -48,7 +49,6 @@ const toggleDarkMode = () => {
 };
 
 const selPokemon = (pokemon) => {
-  console.log(pokemon);
   selectedPokemon.value = pokemon;
 };
 
