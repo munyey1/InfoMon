@@ -34,7 +34,6 @@ const fetchPokemon = async () => {
       allPokemonDetails.push(...batchDetails);
     }
     pokemonData.value = allPokemonDetails;
-
   } catch (err) {
     error.value = err;
   } finally {
@@ -66,6 +65,10 @@ onMounted(() => {
     isDarkMode.value = true;
   }
 });
+
+const tstBtn = () => {
+  console.log('test');
+} 
 </script>
 
 <template>
@@ -75,12 +78,6 @@ onMounted(() => {
         class="bg-white dark:bg-slate-800 px-6 shadow-xl grid grid-cols-5 flex items-stretch"
       >
         <div class="col-span-3 pt-6 flex flex-col">
-          <button
-            @click="toggleDarkMode"
-            class="btn bg-indigo-500 text-white mx-4 shadow-lg whitespace-nowrap w-32"
-          >
-            {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
-          </button>
           <div class="flex flex-col items-center">
             <div
               v-if="selectedPokemon"
@@ -108,6 +105,15 @@ onMounted(() => {
               class="input dark:bg-slate-900 bg-white text-slate-900 dark:text-slate-400 shadow-lg"
               placeholder="Search Pokemon"
             />
+            <button
+              @click="toggleDarkMode"
+              class="btn bg-indigo-500 text-white mx-4 shadow-lg whitespace-nowrap w-32"
+            >
+              {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
+            </button>
+            <button @click="tstBtn" class="btn bg-indigo-500 text-white mx-4 shadow-lg whitespace-nowrap w-32">
+              test
+            </button>
           </div>
           <div class="mt-4 flex-grow overflow-y-auto h-screen p-2">
             <div v-if="loading">

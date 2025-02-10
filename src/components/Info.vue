@@ -42,6 +42,14 @@ const maxStat = (name, stat) => {
   }
 }
 
+const minStat = (name, stat) => {
+  if (name === "hp") {
+    return Math.floor((stat * 2) + 110);
+  } else {
+    return Math.floor(((stat * 2) + 5) * 0.9);
+  }
+}
+
 </script>
 
 <template>
@@ -107,7 +115,7 @@ const maxStat = (name, stat) => {
     </div>
     <!--Bottom Half-->
     <div class="grid grid-cols-2 justify-items-center content-center">
-      <p class="col-span-2 text-2xl font-bold mb-4">PokeDex Data</p>
+      <p class="col-span-2 text-2xl font-bold mb-10">PokeDex Data</p>
       <!--Basic Info-->
       <div>
         <div class="font-semibold text-base space-y-1">
@@ -131,7 +139,8 @@ const maxStat = (name, stat) => {
               {{ stat.name }}:
               <span class="font-bold">{{ stat.base_stat }}</span>
               <br />
-              <progress class="progress progress-primary w-56" :value="stat.base_stat" :max="maxStat(stat.name, stat.base_stat)"></progress>
+              <progress class="progress progress-primary w-56" :value="stat.base_stat" :max="maxStat(stat.name, stat.base_stat)/2"></progress>
+              Min: <span class="font-bold">{{ minStat(stat.name, stat.base_stat) }}</span>
               Max: <span class="font-bold">{{ maxStat(stat.name, stat.base_stat) }}</span>
             </li>
           </ul>
@@ -139,17 +148,15 @@ const maxStat = (name, stat) => {
       </div>
       <div>
         <!--Abilities-->
-        <div>
-          <p class="text-xl font-bold">Abilities</p>
-          <ul>
-            <li
-              v-for="ability in props.pokemon.abilities"
-              :key="ability.ability.name"
-            >
-              <ToolTip :url="ability.ability.url" />
-            </li>
-          </ul>
-        </div>
+        <p class="text-xl font-bold">Abilities</p>
+        <ul>
+          <li
+            v-for="ability in props.pokemon.abilities"
+            :key="ability.ability.name"
+          >
+            <ToolTip :url="ability.ability.url" />
+          </li>
+        </ul>
       </div>
     </div>
   </div>
