@@ -36,20 +36,24 @@ const showModal = (sprite) => {
 
 const maxStat = (name, stat) => {
   if (name === "hp") {
-    return Math.floor((stat * 2) + 204);
+    return Math.floor(stat * 2 + 204);
   } else {
-    return Math.floor(((stat * 2) + 99) * 1.1);
+    return Math.floor((stat * 2 + 99) * 1.1);
   }
-}
+};
 
 const minStat = (name, stat) => {
   if (name === "hp") {
-    return Math.floor((stat * 2) + 110);
+    return Math.floor(stat * 2 + 110);
   } else {
-    return Math.floor(((stat * 2) + 5) * 0.9);
+    return Math.floor((stat * 2 + 5) * 0.9);
   }
-}
+};
 
+const tstbtn = () => {
+  console.log("test");
+  console.log(props.pokemon.game_indices.length);
+};
 </script>
 
 <template>
@@ -112,9 +116,12 @@ const minStat = (name, stat) => {
       >
         {{ showShiny ? "Show Default" : "Show Shiny" }}
       </button>
+      <button @click="tstbtn" class="col-span-3 btn bg-indigo-500 text-white">
+        test
+      </button>
     </div>
     <!--Bottom Half-->
-    <div class="grid grid-cols-2 justify-items-center content-center">
+    <div class="grid grid-cols-2 justify-items-center content-start">
       <p class="col-span-2 text-2xl font-bold mb-10">PokeDex Data</p>
       <!--Basic Info-->
       <div>
@@ -139,15 +146,25 @@ const minStat = (name, stat) => {
               {{ stat.name }}:
               <span class="font-bold">{{ stat.base_stat }}</span>
               <br />
-              <progress class="progress progress-primary w-56" :value="stat.base_stat" :max="maxStat(stat.name, stat.base_stat)/2"></progress>
-              Min: <span class="font-bold">{{ minStat(stat.name, stat.base_stat) }}</span>
-              Max: <span class="font-bold">{{ maxStat(stat.name, stat.base_stat) }}</span>
+              <progress
+                class="progress progress-primary w-56"
+                :value="stat.base_stat"
+                :max="maxStat(stat.name, stat.base_stat) / 2"
+              ></progress>
+              Min:
+              <span class="font-bold">{{
+                minStat(stat.name, stat.base_stat)
+              }}</span>
+              Max:
+              <span class="font-bold">{{
+                maxStat(stat.name, stat.base_stat)
+              }}</span>
             </li>
           </ul>
         </div>
       </div>
+      <!--Abilities-->
       <div>
-        <!--Abilities-->
         <p class="text-xl font-bold">Abilities</p>
         <ul>
           <li
@@ -157,6 +174,38 @@ const minStat = (name, stat) => {
             <ToolTip :url="ability.ability.url" />
           </li>
         </ul>
+      </div>
+      <p class="text-2xl col-span-2 font-bold mt-10">Moveset</p>
+      <div class="border-2 col-span-2">
+        <div role="tablist" class="tabs tabs-bordered">
+          <input
+            type="radio"
+            name="my_tabs_1"
+            role="tab"
+            class="tab"
+            aria-label="Tab 1"
+          />
+          <div role="tabpanel" class="tab-content p-10">Tab content 1</div>
+
+          <input
+            type="radio"
+            name="my_tabs_1"
+            role="tab"
+            class="tab"
+            aria-label="Tab 2"
+            checked="checked"
+          />
+          <div role="tabpanel" class="tab-content p-10">Tab content 2</div>
+
+          <input
+            type="radio"
+            name="my_tabs_1"
+            role="tab"
+            class="tab"
+            aria-label="Tab 3"
+          />
+          <div role="tabpanel" class="tab-content p-10">Tab content 3</div>
+        </div>
       </div>
     </div>
   </div>

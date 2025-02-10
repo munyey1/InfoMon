@@ -65,10 +65,6 @@ onMounted(() => {
     isDarkMode.value = true;
   }
 });
-
-const tstBtn = () => {
-  console.log('test');
-} 
 </script>
 
 <template>
@@ -110,9 +106,6 @@ const tstBtn = () => {
               class="btn bg-indigo-500 text-white mx-4 shadow-lg whitespace-nowrap w-32"
             >
               {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
-            </button>
-            <button @click="tstBtn" class="btn bg-indigo-500 text-white mx-4 shadow-lg whitespace-nowrap w-32">
-              test
             </button>
           </div>
           <div class="mt-4 flex-grow overflow-y-auto h-screen p-2">
