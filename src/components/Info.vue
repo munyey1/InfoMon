@@ -4,6 +4,7 @@ import { ref, computed } from "vue";
 import { typeColorMap } from "@/utils/typeColourMap";
 
 import ToolTip from "./ToolTip.vue";
+import Moves from "./Moves.vue";
 
 const props = defineProps({
   isDarkMode: Boolean,
@@ -53,6 +54,7 @@ const minStat = (name, stat) => {
 const tstbtn = () => {
   console.log("test");
   console.log(props.pokemon.game_indices);
+  console.log(props.pokemon.moves);
 };
 </script>
 
@@ -177,23 +179,7 @@ const tstbtn = () => {
       </div>
       <p class="text-2xl col-span-2 font-bold mt-10">Moveset</p>
       <div class="col-span-2">
-        <div role="tablist" class="tabs tabs-bordered">
-          <div
-            v-for="game in props.pokemon.game_indices"
-            :key="game.version.name"
-          >
-            <input
-              type="radio"
-              name="my_tabs_1"
-              role="tab"
-              class="tab"
-              :aria-label="game.version.name"
-            />
-            <div role="tabpanel" class="tab-content p-10">
-              {{ game.version.name }}
-            </div>
-          </div>
-        </div>
+        <Moves :isDarkMode="isDarkMode" :moves="props.pokemon.moves" />
       </div>
     </div>
   </div>
