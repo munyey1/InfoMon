@@ -51,11 +51,6 @@ const minStat = (name, stat) => {
   }
 };
 
-const tstbtn = () => {
-  console.log("test");
-  console.log(props.pokemon.game_indices);
-  console.log(props.pokemon.moves);
-};
 </script>
 
 <template>
@@ -117,9 +112,6 @@ const tstbtn = () => {
         class="col-span-3 btn bg-indigo-500 text-white -mt- mb-10"
       >
         {{ showShiny ? "Show Default" : "Show Shiny" }}
-      </button>
-      <button @click="tstbtn" class="col-span-3 btn bg-indigo-500 text-white">
-        test
       </button>
     </div>
     <!--Bottom Half-->
