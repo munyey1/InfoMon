@@ -71,7 +71,7 @@ onMounted(() => {
   <main :class="isDarkMode ? 'dark-mode' : ''" class="h-screen flex flex-col">
     <div class="dark:bg-slate-800 bg-white min-h-screen">
       <div
-        class="bg-white dark:bg-slate-800 px-6 shadow-xl grid grid-cols-5 flex items-stretch"
+        class="bg-white dark:bg-slate-800 px-6 shadow-xl grid grid-cols-5 items-stretch"
       >
         <div class="col-span-3 pt-6 flex flex-col">
           <div class="flex flex-col items-center">

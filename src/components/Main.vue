@@ -46,7 +46,7 @@ const testBtn = (url) => {
 <template>
   <div :class="isDarkMode ? 'dark-mode' : ''" class="h-screen flex flex-col">
     <div
-      class="bg-white dark:bg-slate-800 px-6 py-8 shadow-xl grid grid-cols-5 flex items-stretch"
+      class="bg-white dark:bg-slate-800 px-6 py-8 shadow-xl grid grid-cols-5 items-stretch"
     >
       <div class="col-span-3 p-2 flex flex-col">
         <div class="flex flex-col items-center">
